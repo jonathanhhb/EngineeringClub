@@ -102,11 +102,19 @@ def main():
     lcd_string("Rasbperry Pi",LCD_LINE_1)
     lcd_string("16x2 LCD Test",LCD_LINE_2)
 
-    time.sleep(3) # 3 second delay
+    success = False
+    while success == False:
+        try:
+            ip_string = getip()
+            success = True
+            print( "Got IP." )
+        except Exception as ex:
+            print( "Exception getting IP -- sleep a sec." )
+            time.sleep(1) # several second delay
 
     lcd_string( getip() ,LCD_LINE_1)
     lcd_string( "" ,LCD_LINE_2)
-    time.sleep(3)
+    time.sleep(30)
 
     # Send some text
     #lcd_string("1234567890123456",LCD_LINE_1)
@@ -197,7 +205,6 @@ def lcd_string(message,line):
     lcd_byte(ord(message[i]),LCD_CHR)
 
 if __name__ == '__main__':
-
   try:
     main()
   except KeyboardInterrupt:
@@ -205,4 +212,5 @@ if __name__ == '__main__':
   finally:
     lcd_byte(0x01, LCD_CMD)
     lcd_string("Goodbye!",LCD_LINE_1)
+    lcd_string("Error?",LCD_LINE_2)
     GPIO.cleanup()
