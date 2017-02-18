@@ -16,7 +16,7 @@ def application(environ, start_response):
 	if led_val == '' or led_val == "off":
 		# turn off 
 		mypi.write( 17, 0 ) 
-		mypi.set_servo_pulsewidth(18, 500)
+		mypi.set_servo_pulsewidth(18, 600)
 		output += '<a href="' + environ["SCRIPT_NAME"] + '?led=on"><img src="https://thumbs.dreamstime.com/x/toggle-switch-7382047.jpg"/></a><br>' 
 	elif led_val == "on":
 		# turn on 
